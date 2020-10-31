@@ -1,12 +1,15 @@
 {
-    "compilerOptions": {
-        "outDir": "./wwwroot/js/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "commonjs",
-        "target": "es5",
-        "strict": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true
-    }
+  "compilerOptions": {
+    "outDir": "./wwwroot/js/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "strict": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "vuetify"
+    ]
+  }
 }

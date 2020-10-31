@@ -2,20 +2,14 @@ const path = require('path');
 const nonScopedStyles = require('./nonScopedStyles.js');
 
 module.exports = {
-  // Sets Webpack's build mode to development which has specific optimizations
   mode: 'development',
 
-  // Enable source maps for browser debugging
-  // https://webpack.js.org/configuration/devtool/
   devtool: 'eval-source-map',
 
-  // Controls the amount of output shown in the Webpack build
   stats: 'minimal',
 
-  // Options for the Webpack dev server, which serves the front-end of an application as its own app
-  // This allows for things like automatic reloading of a page when there is a file change
   devServer: {
-    port: 3000, // The port that the dev server runs on
+    port: 3000,
     index: '', // specify to enable root proxying
     contentBase: path.resolve(__dirname, '../wwwroot/dist'),
     proxy: {
@@ -26,20 +20,16 @@ module.exports = {
   },
 
   module: {
-    // All Webpack loaders are registered here, this is where the main bundling happens
-    // Each loader has a type of file that it can process and configured options specific to it
-    // Rules are processed top to bottom
-    // If there are multiple loaders for a single file type, the loaders are processed right to left (or bottom to top depending on formatting)
     rules: [
-      // Typescript and TSX files
+      // Typescript
       {
-        test: /\.ts(x?)$/,
+        test: /\.ts$/,
         exclude: /node_modules/,
         loader: 'ts-loader',
         options: { appendTsSuffixTo: [/\.vue$/] },
       },
 
-      // Javascript and JSX files
+      // Javascript
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -53,7 +43,7 @@ module.exports = {
         ],
       },
 
-      // Vue files
+      // Vue
       {
         test: /\.vue$/,
         exclude: /node_modules/,
@@ -65,8 +55,7 @@ module.exports = {
 
       // Sass
       {
-        test: /\.scss$/,
-        exclude: /node_modules/,
+        test: /\.s(a|c)ss$/,
         oneOf: [
           {
             test: nonScopedStyles,
@@ -74,14 +63,14 @@ module.exports = {
           },
           {
             use: [
-              'style-loader',
+              'vue-style-loader',
               {
                 loader: 'css-loader',
                 options: {
                   modules: true,
                 },
               },
-              'sass-loader',
+              'sass-loader'
             ],
           },
         ],
@@ -98,7 +87,7 @@ module.exports = {
           },
           {
             use: [
-              'style-loader',
+              'vue-style-loader',
               {
                 loader: 'css-loader',
                 options: {

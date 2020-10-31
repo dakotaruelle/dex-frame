@@ -1,6 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
   entry: {
@@ -28,5 +29,5 @@ module.exports = {
     plugins: [PnpWebpackPlugin.moduleLoader(module)],
   },
 
-  plugins: [new VueLoaderPlugin()],
+  plugins: [new VueLoaderPlugin(), new VuetifyLoaderPlugin()],
 };

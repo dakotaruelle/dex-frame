@@ -1,7 +1,12 @@
 <template>
-  <div>
-    <span :class="$style['hello-world']">{{ getMessage() }}</span>
-  </div>
+  <v-app>
+    <v-main>
+      <v-container>
+        <div :class="$style['hello-world']">{{ getMessage() }}</div>
+        <v-btn color="primary">Hello From Vuetify</v-btn>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -10,7 +15,7 @@ import Component from 'vue-class-component';
 
 @Component
 export default class HelloWorld extends Vue {
-  message: string = 'Hello World';
+  message = 'Hello from Vue';
 
   getMessage(): string {
     return this.message;
