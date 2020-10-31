@@ -3,7 +3,7 @@
     <v-main>
       <v-container>
         <div :class="$style['hello-world']">{{ getMessage() }}</div>
-        <v-btn color="primary">Hello From Vuetify</v-btn>
+        <v-btn color="primary" @click='toggleDarkTheme'>Toggle dark theme</v-btn>
       </v-container>
     </v-main>
   </v-app>
@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Vuetify from 'vuetify/lib';
 import Component from 'vue-class-component';
 
 @Component
@@ -19,6 +20,10 @@ export default class HelloWorld extends Vue {
 
   getMessage(): string {
     return this.message;
+  }
+
+  toggleDarkTheme(): void {
+    this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
   }
 }
 </script>

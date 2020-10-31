@@ -2,7 +2,9 @@ import Vue from 'vue';
 import HelloWorld from './HelloWorld.vue';
 import Vuetify from './plugins/vuetify';
 
-new Vue({
+const vm = new Vue({
   vuetify: Vuetify,
   render: createApp => createApp(HelloWorld),
-}).$mount('#vue-app');
+})
+
+vm.$mount('#vue-app');
