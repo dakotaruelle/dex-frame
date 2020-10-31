@@ -1,2 +1,4 @@
 node_modules/
-src/web-client/dist/js/
+src/web-client/wwwroot/dist/js/
+bin/
+obj/

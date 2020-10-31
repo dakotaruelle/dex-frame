@@ -1,51 +1,16 @@
-const path = require('path')
-const VueLoader = require('vue-loader')
-const PnpWebpackPlugin = require('pnp-webpack-plugin')
+const { merge } = require('webpack-merge');
+const developmentConfig = require('./webpack.config.development');
+const productionConfig = require('./webpack.config.production');
+const commonConfig = require('./webpack.config.common');
 
-module.exports = {
-  mode: 'development',
+module.exports = env => {
+  let config;
 
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 7000,
-  },
+  if (env === 'development') {
+    config = merge(commonConfig, developmentConfig);
+  } else {
+    config = merge(commonConfig, productionConfig);
+  }
 
-  entry: {
-    app: './App.js',
-  },
-  
-  module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        exclude: /(node_modules)/,
-        use: 'vue-loader'
-      }
-    ],
-  },
-
-  plugins: [
-    new VueLoader.VueLoaderPlugin(),
-  ],
-
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].js',
-    publicPath: '/'
-  },
-
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.runtime.esm-bundler.js',
-    },
-    plugins: [
-      PnpWebpackPlugin,
-    ],
-  },
-  resolveLoader: {
-    plugins: [
-      PnpWebpackPlugin.moduleLoader(module),
-    ],
-  },
-}
+  return config;
+};

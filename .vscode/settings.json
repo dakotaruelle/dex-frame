@@ -1,0 +1,18 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "eslint.nodePath": "./src/web-client/.yarn/sdks",
+  "prettier.prettierPath": "./src/web-client/.yarn/sdks/prettier/index.js",
+  "typescript.tsdk": "./src/web-client/.yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.formatOnSave": true,
+}
