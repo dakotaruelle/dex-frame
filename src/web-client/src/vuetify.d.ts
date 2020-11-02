@@ -7,6 +7,6 @@ import Vuetify from 'vuetify/lib'
 declare module 'vue/types/vue' {
   // 3. Declare augmentation for Vue
   interface Vue {
-    $vuetify: Vuetify
+    $vuetify: any
   }
 }
