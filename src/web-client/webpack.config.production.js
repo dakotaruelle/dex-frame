@@ -1,5 +1,5 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const nonScopedStyles = require('./nonScopedStyles.js');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const nonScopedStyles = require('./nonScopedStyles.js')
 
 module.exports = {
   mode: 'production',
@@ -113,4 +113,4 @@ module.exports = {
       },
     ],
   },
-};
+}

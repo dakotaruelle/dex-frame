@@ -1,5 +1,5 @@
-const path = require('path');
-const nonScopedStyles = require('./nonScopedStyles.js');
+const path = require('path')
+const nonScopedStyles = require('./nonScopedStyles.js')
 
 module.exports = {
   mode: 'development',
@@ -13,9 +13,9 @@ module.exports = {
     index: '', // specify to enable root proxying
     contentBase: path.resolve(__dirname, '../wwwroot/dist'),
     proxy: {
-      context: () => true,              // Proxy all requests
+      context: () => true, // Proxy all requests
       target: 'https://localhost:5001', // to ASP.NET Core backend
-      secure: false,                    // don't verify the self-signed certificate
+      secure: false, // don't verify the self-signed certificate
     },
   },
 
@@ -70,7 +70,7 @@ module.exports = {
                   modules: true,
                 },
               },
-              'sass-loader'
+              'sass-loader',
             ],
           },
         ],
@@ -100,4 +100,4 @@ module.exports = {
       },
     ],
   },
-};
+}
