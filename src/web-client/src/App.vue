@@ -52,6 +52,11 @@ export default class HelloWorld extends Vue {
   toggleDarkTheme(): void {
     this.$vuetify.theme.dark = !this.$vuetify.theme.dark
   }
+
+  async mounted(): Promise<void> {
+    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
+    console.log(data)
+  }
 }
 </script>
 

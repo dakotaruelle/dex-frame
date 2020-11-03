@@ -9,12 +9,12 @@ module.exports = {
   stats: 'minimal',
 
   devServer: {
-    port: 3000,
+    port: 7000,
     index: '', // specify to enable root proxying
     contentBase: path.resolve(__dirname, '../wwwroot/dist'),
     proxy: {
       context: () => true, // Proxy all requests
-      target: 'https://localhost:5001', // to ASP.NET Core backend
+      target: 'https://localhost:7001', // to ASP.NET Core backend
       secure: false, // don't verify the self-signed certificate
     },
   },
