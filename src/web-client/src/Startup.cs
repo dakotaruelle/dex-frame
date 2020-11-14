@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace WebClient
 {
@@ -19,7 +21,24 @@ namespace WebClient
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews()
-      .AddRazorRuntimeCompilation();
+        .AddRazorRuntimeCompilation();
+
+      services.AddAuthentication(options =>
+      {
+        options.DefaultScheme = "Cookies";
+        options.DefaultChallengeScheme = "oidc";
+      })
+        .AddCookie("Cookies")
+        .AddOpenIdConnect("oidc", options =>
+        {
+          options.Authority = "https://localhost:9001";
+
+          options.ClientId = "interactive";
+          options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
+          options.ResponseType = $"code";
+
+          options.SaveTokens = true;
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,14 +58,16 @@ namespace WebClient
       app.UseStaticFiles();
 
       app.UseRouting();
-
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllerRoute(
-                  name: "default",
-                  pattern: "{controller=Home}/{action=Index}/{id?}");
+          name: "default",
+          pattern: "{controller=Home}/{action=Index}/{id?}"
+        )
+        /*.RequireAuthorization()*/;
       });
     }
   }

@@ -4,7 +4,7 @@
     "Api": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:9001;",
+      "applicationUrl": "https://localhost:8001;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
