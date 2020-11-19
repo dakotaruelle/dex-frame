@@ -10,29 +10,13 @@ namespace WebClient.Controllers
       return View();
     }
 
-    [HttpGet]
-    public IActionResult Login()
-    {
-      return View();
-    }
-
     [HttpPost]
     public IActionResult Login(string returnUrl)
     {
       return Challenge(new AuthenticationProperties
       {
-        RedirectUri = returnUrl ?? "/Home/Profile"
+        RedirectUri = returnUrl ?? "/"
       }, "oidc");
-    }
-
-    public IActionResult AccessDenied()
-    {
-      return View();
-    }
-
-    public IActionResult Profile()
-    {
-      return View(User.Identity.IsAuthenticated);
     }
   }
 }

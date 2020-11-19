@@ -46,9 +46,9 @@ namespace identity_server
 
           AllowedGrantTypes = GrantTypes.Code,
 
-          RedirectUris = { "https://localhost:7001/signin-oidc" },
+          RedirectUris = { "https://localhost:7000/signin-oidc", "https://localhost:7001/signin-oidc" },
           FrontChannelLogoutUri = "https://localhost:7001/signout-oidc",
-          PostLogoutRedirectUris = { "https://localhost:7001/signout-callback-oidc" },
+          PostLogoutRedirectUris = { "https://localhost:7000/signout-callback-oidc", "https://localhost:7001/signout-callback-oidc" },
 
           AllowOfflineAccess = true,
           AllowedScopes = { "openid", "profile", "scope2" }

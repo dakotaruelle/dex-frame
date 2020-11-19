@@ -1,9 +1,15 @@
 <div id="vue-app" style="padding-top: 50px;"></div>
 
 @section Styles {
-    <link rel="stylesheet" href="/dist/css/App.css">
+  <link rel="stylesheet" href="/dist/css/App.css">
 }
 
 @section Scripts {
-    <script src="/dist/js/App.min.js" asp-append-version="true"></script>
+  <script>
+    var rootVueAppProps = {
+      userIsAuthenticated: '@User.Identity.IsAuthenticated.ToString().ToLower()' !== 'false'
+    }
+  </script>
+
+  <script src="/dist/js/App.min.js" asp-append-version="true"></script>
 }

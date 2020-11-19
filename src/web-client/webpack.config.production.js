@@ -12,7 +12,7 @@ module.exports = {
 
   devtool: 'none',
 
-  stats: 'verbose',
+  stats: 'minimal',
 
   module: {
     rules: [

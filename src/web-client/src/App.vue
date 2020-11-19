@@ -30,6 +30,10 @@
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
         <div>Main content</div>
+        <div>User is authenticated: {{ rootVueAppProps.userIsAuthenticated }}</div>
+        <form method="post" action="/Home/Login">
+          <button type="submit">Login</button>
+        </form>
       </v-container>
     </v-main>
 
@@ -38,12 +42,19 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import Vue from 'vue'
 import Component from 'vue-class-component'
 
+interface RootVueAppProps {
+  userIsAuthenticated?: boolean
+}
+
 @Component
-export default class HelloWorld extends Vue {
+export default class App extends Vue {
   message = 'Hello from Vue'
+  rootVueAppProps: RootVueAppProps = {}
 
   getMessage(): string {
     return this.message
@@ -54,8 +65,10 @@ export default class HelloWorld extends Vue {
   }
 
   async mounted(): Promise<void> {
-    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
-    console.log(data)
+    // const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
+    // console.log(data)
+
+    this.rootVueAppProps = (window as any).rootVueAppProps
   }
 }
 </script>
