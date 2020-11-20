@@ -1,5 +1,6 @@
 const path = require('path')
 const nonScopedStyles = require('./nonScopedStyles.js')
+const fs = require('fs')
 
 module.exports = {
   mode: 'development',
@@ -17,6 +18,10 @@ module.exports = {
       target: 'https://localhost:7001', // to ASP.NET Core backend
       secure: false, // don't verify the self-signed certificate
     },
+    https: true,
+    key: fs.readFileSync('./server.pem'),
+    cert: fs.readFileSync('./server.pem'),
+    ca: fs.readFileSync('./server.pem'),
   },
 
   module: {
