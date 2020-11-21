@@ -3,3 +3,4 @@ src/web-client/wwwroot/dist/js/
 src/web-client/wwwroot/dist/css/
 bin/
 obj/
+.vs/
