@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -18,19 +21,18 @@ namespace Api.Controllers
     [HttpGet]
     public IEnumerable<Warframe> Get()
     {
-      var warFrames = new List<Warframe>
-            {
-              new Warframe
-              {
-                Name = "Ash"
-              },
-              new Warframe
-              {
-                Name = "Ember"
-              }
-            };
+      var warframes = new List<Warframe>();
 
-      return warFrames;
+      using (var connection = new SqlConnection("Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"))
+      {
+        string getWarframesSql = @"
+          SELECT * FROM dbo.warframe
+        ";
+
+        warframes = connection.Query<Warframe>(getWarframesSql).ToList();
+      }
+
+      return warframes;
     }
   }
 }
