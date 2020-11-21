@@ -34,6 +34,12 @@
         <form method="post" action="/Home/Login">
           <button type="submit">Login</button>
         </form>
+
+        <h1>Warframes</h1>
+        <div v-for="warframe in warframes" :key="warframe.id">
+          <span>id: {{ warframe.id }}</span>
+          <span>name: {{ warframe.name }}</span>
+        </div>
       </v-container>
     </v-main>
 
@@ -51,10 +57,16 @@ interface RootVueAppProps {
   userIsAuthenticated?: boolean
 }
 
+interface Warframe {
+  id: number
+  name: string
+}
+
 @Component
 export default class App extends Vue {
   message = 'Hello from Vue'
   rootVueAppProps: RootVueAppProps = {}
+  warframes: Warframe[] = []
 
   getMessage(): string {
     return this.message
@@ -65,8 +77,9 @@ export default class App extends Vue {
   }
 
   async mounted(): Promise<void> {
-    // const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
-    // console.log(data)
+    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
+
+    this.warframes = data
 
     this.rootVueAppProps = (window as any).rootVueAppProps
   }

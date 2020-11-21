@@ -23,7 +23,7 @@ namespace Api
         {
           options.AddPolicy(name: "AllowFrameDexWebClient", builder =>
             {
-              builder.WithOrigins("http://localhost:7000", "https:localhost:7001");
+              builder.WithOrigins("https://localhost:7000", "https:localhost:7001");
             });
         }
       );
