@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Client",
+      "name": "WebClient",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build WebClient",
@@ -23,10 +23,58 @@
       }
     },
     {
-      "name": ".NET Core Attach",
+      "name": "Api",
       "type": "coreclr",
-      "request": "attach",
-      "processId": "${command:pickProcess}"
+      "request": "launch",
+      "preLaunchTask": "build Api",
+      // If you have changed target frameworks, make sure to update the program path.
+      "program": "${workspaceFolder}/src/api/bin/Debug/netcoreapp3.1/Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/api/",
+      "stopAtEntry": false,
+
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": "Identity Server",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build IdentityServer",
+      // If you have changed target frameworks, make sure to update the program path.
+      "program": "${workspaceFolder}/src/identity-server/bin/Debug/netcoreapp3.1/IdentityServer.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/identity-server/",
+      "stopAtEntry": false,
+
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/src/identity-server/Views"
+      }
+    },
+    {
+      "name": "Update DB",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build AppData",
+      // If you have changed target frameworks, make sure to update the program path.
+      "program": "${workspaceFolder}/src/app-data/bin/Debug/netcoreapp3.1/AppData.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/app-data/",
+      "stopAtEntry": false,
+
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
+    // {
+    //   "name": ".NET Core Attach",
+    //   "type": "coreclr",
+    //   "request": "attach",
+    //   "processId": "${command:pickProcess}"
+    // }
   ]
 }
