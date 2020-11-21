@@ -12,7 +12,8 @@
   },
   "eslint.nodePath": "./src/web-client/.yarn/sdks",
   "prettier.prettierPath": "./src/web-client/.yarn/sdks/prettier/index.js",
+  "prettier.tabWidth": 2,
   "typescript.tsdk": "./src/web-client/.yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
