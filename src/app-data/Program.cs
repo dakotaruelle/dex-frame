@@ -14,7 +14,8 @@ namespace AppData
 
       var upgrader = DeployChanges.To
         .SqlDatabase(connectionString)
-        .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
+        .JournalToSqlTable("dbo", "ScriptHistory")
+        .WithScriptsFromFileSystem("./scripts")
         .LogToConsole()
         .Build();
 
