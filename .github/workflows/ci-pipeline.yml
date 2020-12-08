@@ -17,9 +17,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+
     - name: Install dependencies
       run: dotnet restore "src/api/Api.csproj"
+
     - name: Build
-      run: dotnet build "src/api/Api.csproj" --configuration Release --no-restore
-    - name: Test
-      run: dotnet test "src/api/Api.csproj" --no-restore --verbosity normal
+      run: dotnet build "src/api/Api.csproj" --configuration Release --no-restore -o out
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: artifact-api
+        path: out
+        if-no-files-found: error
+        retention-days: 90
