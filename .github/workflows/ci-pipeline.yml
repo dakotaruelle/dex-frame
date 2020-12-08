@@ -9,11 +9,11 @@ on:
 jobs:
   build-api:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core SDK
+    - name: Set .NET Core SDK version
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
@@ -27,7 +27,7 @@ jobs:
     - name: Publish Api
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
-    - name: Upload a Build Artifact
+    - name: Upload Api Artifact
       uses: actions/upload-artifact@v2.2.1
       with:
         name: api
