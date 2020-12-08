@@ -21,16 +21,21 @@ jobs:
     - name: Install Api dependencies
       run: dotnet restore "src/api/Api.csproj"
 
-    - name: Build Api
+    - name: Build Api project
       run: dotnet build "src/api/Api.csproj" --configuration Release --no-restore
 
-    - name: Publish Api
+    - name: Create Api release artifacts
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
-    - name: Upload Api Artifact
+    - name: Zip Api release artifacts
+      uses: Amadevus/pwsh-script@v2.0.0
+      with:
+        script: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
+      
+    - name: Upload Api zipped artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
         name: api
-        path: dist
+        path: dist/api.zip
         if-no-files-found: error
         retention-days: 90
