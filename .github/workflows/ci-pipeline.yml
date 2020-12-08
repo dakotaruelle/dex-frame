@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build Frame Dex
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-api:
 
     runs-on: ubuntu-latest
 
@@ -18,16 +18,19 @@ jobs:
       with:
         dotnet-version: 3.1.301
 
-    - name: Install dependencies
+    - name: Install Api dependencies
       run: dotnet restore "src/api/Api.csproj"
 
-    - name: Build
-      run: dotnet build "src/api/Api.csproj" --configuration Release --no-restore -o out
+    - name: Build Api
+      run: dotnet build "src/api/Api.csproj" --configuration Release --no-restore
+
+    - name: Publish Api
+      run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: artifact-api
-        path: out
+        name: api
+        path: dist
         if-no-files-found: error
         retention-days: 90
