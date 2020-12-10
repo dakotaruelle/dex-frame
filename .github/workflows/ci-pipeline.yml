@@ -1,4 +1,4 @@
-name: Build Frame Dex
+name: Build and Deploy
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
 
 jobs:
   build-api:
-
     runs-on: ubuntu-18.04
 
     steps:
@@ -27,15 +26,26 @@ jobs:
     - name: Create Api release artifacts
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
-    - name: Zip Api release artifacts
-      uses: Amadevus/pwsh-script@v2.0.0
-      with:
-        script: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
+#     - name: Zip Api release artifacts
+#       uses: Amadevus/pwsh-script@v2.0.0
+#       with:
+#         script: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
       
-    - name: Upload Api zipped artifacts
+    - name: Upload Api artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
         name: api
         path: dist/api.zip
         if-no-files-found: error
         retention-days: 90
+        
+  deploy-api:
+    runs-on: ubuntu-18.04
+    
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.6
+        with:
+          name: api
+          
+      
