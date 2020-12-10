@@ -26,11 +26,6 @@ jobs:
     - name: Create Api release artifacts
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
-#     - name: Zip Api release artifacts
-#       uses: Amadevus/pwsh-script@v2.0.0
-#       with:
-#         script: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
-      
     - name: Upload Api artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
@@ -39,13 +34,25 @@ jobs:
         if-no-files-found: error
         retention-days: 90
         
-#   deploy-api:
-#     runs-on: ubuntu-18.04
+  deploy-api:
+    runs-on: ubuntu-18.04
     
-#     steps:
-#       - name: Download a Build Artifact
-#         uses: actions/download-artifact@v2.0.6
-#         with:
-#           name: api
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.0.6
+        with:
+          name: api
           
-      
+      - shell: bash
+        name: Login to Azure
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        run: |
+          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+
+      - shell: bash
+        name: Deploy to Api to Azure
+        run: |
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src api.zip
