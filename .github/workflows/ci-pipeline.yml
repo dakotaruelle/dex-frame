@@ -26,11 +26,15 @@ jobs:
     - name: Create Api release artifacts
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
-    - name: Upload Api artifacts
+    - shell: pwsh
+      name: Zip release artifacts
+      run: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
+      
+    - name: Upload Api zipped artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: api
-        path: dist
+        name: api.zip
+        path: dist/api.zip
         if-no-files-found: error
         retention-days: 90
         
@@ -42,7 +46,7 @@ jobs:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v2.0.6
         with:
-          name: api
+          name: api.zip
           path: artifacts
           
       - shell: bash
@@ -57,4 +61,4 @@ jobs:
       - shell: bash
         name: Deploy to Api to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/api.zip
