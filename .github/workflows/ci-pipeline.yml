@@ -57,4 +57,4 @@ jobs:
       - shell: bash
         name: Deploy to Api to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/api
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts
