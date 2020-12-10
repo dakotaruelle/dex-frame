@@ -43,6 +43,7 @@ jobs:
         uses: actions/download-artifact@v2.0.6
         with:
           name: api
+          path: /artifacts
           
       - shell: bash
         name: Login to Azure
@@ -56,4 +57,4 @@ jobs:
       - shell: bash
         name: Deploy to Api to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src api.zip
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src /artifacts/api.zip
