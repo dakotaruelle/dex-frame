@@ -36,6 +36,7 @@ jobs:
         
   deploy-api:
     runs-on: ubuntu-18.04
+    needs: [build-api]
     
     steps:
       - name: Download a Build Artifact
