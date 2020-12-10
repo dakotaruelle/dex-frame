@@ -35,17 +35,17 @@ jobs:
       uses: actions/upload-artifact@v2.2.1
       with:
         name: api
-        path: dist/api.zip
+        path: dist
         if-no-files-found: error
         retention-days: 90
         
-  deploy-api:
-    runs-on: ubuntu-18.04
+#   deploy-api:
+#     runs-on: ubuntu-18.04
     
-    steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.0.6
-        with:
-          name: api
+#     steps:
+#       - name: Download a Build Artifact
+#         uses: actions/download-artifact@v2.0.6
+#         with:
+#           name: api
           
       
