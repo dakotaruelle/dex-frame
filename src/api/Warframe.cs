@@ -1,4 +1,4 @@
-namespace Api
+namespace Api.Controllers
 {
   public class Warframe
   {
