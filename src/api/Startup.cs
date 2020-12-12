@@ -23,7 +23,11 @@ namespace Api
         {
           options.AddPolicy(name: "AllowFrameDexWebClient", builder =>
             {
-              builder.WithOrigins("https://localhost:7000", "https:localhost:7001");
+              builder.WithOrigins(
+                "https://localhost:7000",
+                "https://localhost:7001",
+                "http://framedex.azurewebsites.net/warframes"
+              );
             });
         }
       );

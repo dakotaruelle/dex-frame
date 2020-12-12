@@ -77,7 +77,7 @@ export default class App extends Vue {
   }
 
   async mounted(): Promise<void> {
-    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
+    const data = await fetch('http://framedex-api.azurewebsites.net/warframes').then(response => response.json())
 
     this.warframes = data
 
