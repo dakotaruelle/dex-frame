@@ -99,7 +99,7 @@ jobs:
           
   deploy-web-client:
     runs-on: ubuntu-18.04
-    needs: [build-api]
+    needs: [build-web-client]
     
     steps:
       - name: Download WebClient artifacts
