@@ -74,7 +74,7 @@ jobs:
         dotnet-version: 3.1.301
 
     - name: Build WebClient JS project
-      run: yarn build:prod
+      run: cd src/web-client && yarn build:prod
 
     - name: Install WebClient C# dependencies
       run: dotnet restore "src/web-client/WebClient.csproj"
