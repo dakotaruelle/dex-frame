@@ -27,14 +27,14 @@ jobs:
       run: dotnet publish "src/api/Api.csproj" --configuration Release --no-restore --no-build --output dist
       
     - shell: pwsh
-      name: Zip release artifacts
+      name: Zip Api release artifacts
       run: Compress-Archive -Path dist/* -DestinationPath dist/api.zip
       
     - name: Upload Api zipped artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
         name: api.zip
-        path: dist/api.zip
+        path: dist
         if-no-files-found: error
         retention-days: 90
         
@@ -43,7 +43,7 @@ jobs:
     needs: [build-api]
     
     steps:
-      - name: Download a Build Artifact
+      - name: Download Api artifacts
         uses: actions/download-artifact@v2.0.6
         with:
           name: api.zip
@@ -61,4 +61,63 @@ jobs:
       - shell: bash
         name: Deploy to Api to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/api.zip
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex-api --src artifacts/api.zip
+          
+  build-web-client:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set .NET Core SDK version
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+
+    - name: Build WebClient JS project
+      run: yarn build:prod
+
+    - name: Install WebClient C# dependencies
+      run: dotnet restore "src/web-client/WebClient.csproj"
+
+    - name: Build WebClient C# project
+      run: dotnet build "src/web-client/WebClient.csproj" --configuration Release --no-restore
+
+    - name: Create WebClient release artifacts
+      run: dotnet publish "src/web-client/WebClient.csproj" --configuration Release --no-restore --no-build --output dist
+      
+    - shell: pwsh
+      name: Zip WebClient release artifacts
+      run: Compress-Archive -Path dist/* -DestinationPath dist/webclient.zip
+      
+    - name: Upload WebClient zipped artifacts
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: web-client.zip
+        path: dist/
+        if-no-files-found: error
+        retention-days: 90
+          
+  deploy-web-client:
+    runs-on: ubuntu-18.04
+    needs: [build-api]
+    
+    steps:
+      - name: Download WebClient artifacts
+        uses: actions/download-artifact@v2.0.6
+        with:
+          name: webclient.zip
+          path: artifacts
+          
+      - shell: bash
+        name: Login to Azure
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        run: |
+          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+
+      - shell: bash
+        name: Deploy to Api to Azure
+        run: |
+          az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/webclient.zip
