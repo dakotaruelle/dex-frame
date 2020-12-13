@@ -92,7 +92,7 @@ jobs:
     - name: Upload WebClient zipped artifacts
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: web-client.zip
+        name: webclient.zip
         path: dist/
         if-no-files-found: error
         retention-days: 90
