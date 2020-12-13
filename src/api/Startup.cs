@@ -26,8 +26,7 @@ namespace Api
               builder.WithOrigins(
                 "https://localhost:7000",
                 "https://localhost:7001",
-                "http://framedex.azurewebsites.net/warframes",
-                "https://framedex.azurewebsites.net/warframes"
+                "https://framedex.azurewebsites.net"
               );
             });
         }
