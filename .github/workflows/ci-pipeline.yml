@@ -67,35 +67,35 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set .NET Core SDK version
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
+      - uses: actions/checkout@v2
+      - name: Set .NET Core SDK version
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
 
-    - name: Build WebClient JS project
-      run: cd src/web-client && yarn build:prod
+      - name: Build WebClient JS project
+        run: cd src/web-client && yarn build:prod
 
-    - name: Install WebClient C# dependencies
-      run: dotnet restore "src/web-client/WebClient.csproj"
+      - name: Install WebClient C# dependencies
+        run: dotnet restore "src/web-client/WebClient.csproj"
 
-    - name: Build WebClient C# project
-      run: dotnet build "src/web-client/WebClient.csproj" --configuration Release --no-restore
+      - name: Build WebClient C# project
+        run: dotnet build "src/web-client/WebClient.csproj" --configuration Release --no-restore
 
-    - name: Create WebClient release artifacts
-      run: dotnet publish "src/web-client/WebClient.csproj" --configuration Release --no-restore --no-build --output dist
-      
-    - shell: pwsh
-      name: Zip WebClient release artifacts
-      run: Compress-Archive -Path dist/* -DestinationPath dist/webclient.zip
-      
-    - name: Upload WebClient zipped artifacts
-      uses: actions/upload-artifact@v2.2.1
-      with:
-        name: webclient.zip
-        path: dist/
-        if-no-files-found: error
-        retention-days: 90
+      - name: Create WebClient release artifacts
+        run: dotnet publish "src/web-client/WebClient.csproj" --configuration Release --no-restore --no-build --output dist
+
+      - shell: pwsh
+        name: Zip WebClient release artifacts
+        run: Compress-Archive -Path dist/* -DestinationPath dist/webclient.zip
+
+      - name: Upload WebClient zipped artifacts
+        uses: actions/upload-artifact@v2.2.1
+        with:
+          name: webclient.zip
+          path: dist/
+          if-no-files-found: error
+          retention-days: 90
           
   deploy-web-client:
     runs-on: ubuntu-18.04
@@ -121,3 +121,31 @@ jobs:
         name: Deploy WebClient to Azure
         run: |
           az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/webclient.zip
+          
+  build-app-data:
+    runs-on: ubuntu-18.04
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set .NET Core SDK version
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      
+      - name: Install AppData dependencies
+        run: dotnet restore "src/app-data/AppData.csproj"
+
+      - name: Build AppData C# project
+        run: dotnet build "src/app-data/AppData.csproj" --configuration Release --no-restore
+
+      - name: Create AppData release artifacts
+        run: dotnet publish "src/app-data/AppData.csproj" --configuration Release --no-restore --no-build --output dist
+
+      - name: Upload AppData release artifacts
+        uses: actions/upload-artifact@v2.2.1
+        with:
+          name: appdata
+          path: dist/
+          if-no-files-found: error
+          retention-days: 90
+        
