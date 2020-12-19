@@ -148,4 +148,21 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 90
+          
+  deploy-app-data:
+    runs-on: ubuntu-18.04
+#     needs: [deploy-web-client, deploy-api]
+    
+    steps:
+      - name: Download AppData artifacts
+        uses: actions/download-artifact@v2.0.6
+        with:
+          name: appdata
+          path: artifacts
+          
+      - shell: bash
+        name: Login to Azure
+        env:
+          AZURE_DB_CONNECTION_STRING: ${{ secrets.AZURE_DB_CONNECTION_STRING }}
+        run: dotnet artifacts/AppData.dll "$AZURE_DB_CONNECTION_STRING"
         
