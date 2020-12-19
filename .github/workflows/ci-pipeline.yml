@@ -151,7 +151,7 @@ jobs:
           
   deploy-app-data:
     runs-on: ubuntu-18.04
-#     needs: [deploy-web-client, deploy-api]
+    needs: [build-app-data]
     
     steps:
       - name: Download AppData artifacts
