@@ -46,7 +46,7 @@ namespace IdentityServer
 
           AllowedGrantTypes = GrantTypes.Code,
 
-          RedirectUris = { "https://localhost:7000/signin-oidc", "https://localhost:7001/signin-oidc", "https://framedex.azurewebsites.net/" },
+          RedirectUris = { "https://localhost:7000/signin-oidc", "https://localhost:7001/signin-oidc", "https://framedex.azurewebsites.net/signin-oidc" },
           FrontChannelLogoutUri = "https://framedex.azurewebsites.net/signout-oidc",
           PostLogoutRedirectUris = { "https://localhost:7000/signout-callback-oidc", "https://localhost:7001/signout-callback-oidc", "https://framedex.azurewebsites.net/signout-callback-oidc" },
 
