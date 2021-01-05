@@ -24,32 +24,28 @@ namespace Api.Controllers
     }
 
     [HttpGet]
-    public async Task<List<WarframeResponse>> Get()
+    public async Task<List<Warframe>> Get()
     {
       try
       {
         var warframes = new List<Warframe>();
 
-        using var httpClient = new HttpClient();
-        var response = await httpClient.GetFromJsonAsync<List<WarframeResponse>>("https://api.warframestat.us/warframes");
-        return response;
+        using (var connection = new SqlConnection("Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"))
+        {
+          string getWarframesSql = @"
+            SELECT *
+            FROM dbo.Warframe
+          ";
 
-        // using (var connection = new SqlConnection("Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"))
-        // {
-        //   string getWarframesSql = @"
-        //     SELECT * FROM dbo.warframe
-        //   ";
+          warframes = connection.Query<Warframe>(getWarframesSql).ToList();
+        }
 
-        //   warframes = connection.Query<Warframe>(getWarframesSql).ToList();
-        // }
-
-        // return warframes;
+        return warframes;
       }
       catch (Exception exception)
       {
         System.Console.WriteLine(exception);
-        // return new List<WarframeResponse>();
-        return new List<WarframeResponse>();
+        return new List<Warframe>();
       }
     }
   }
