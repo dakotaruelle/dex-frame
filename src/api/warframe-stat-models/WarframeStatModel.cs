@@ -1,6 +1,6 @@
 namespace Api.DataUpdates.Warframe
 {
-  public class WarframeResponse
+  public class WarframeStatModel
   {
     public int Id { get; set; }
     public string UniqueName { get; set; }
@@ -12,7 +12,7 @@ namespace Api.DataUpdates.Warframe
     public int Stamina { get; set; }
     public int Power { get; set; }
     public int MasteryReq { get; set; }
-    public float SprintSpeed { get; set; }
+    public double SprintSpeed { get; set; }
     public string PassiveDescription { get; set; }
     // public List<Ability> Abilities { get; set; }
     public string ProductCategory { get; set; }
@@ -33,7 +33,7 @@ namespace Api.DataUpdates.Warframe
     public string Introduced { get; set; }
     // public List<Polarity> Polarities { get; set; }
     public string Sex { get; set; }
-    public float Sprint { get; set; }
+    public double Sprint { get; set; }
     public string WikiaThumbnail { get; set; }
     public string WikiaUrl { get; set; }
   }
