@@ -1,15 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      absolute
-      shrink-on-scroll
-      color="#6A76AB"
-      dark
-      app
-      prominent
-      src=""
-      scroll-target="#scrolling-techniques-3"
-    >
+    <v-app-bar absolute shrink-on-scroll color="#6A76AB" dark app prominent src="">
       <template v-slot:img="{ props }">
         <v-img v-bind="props" gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"></v-img>
       </template>
@@ -29,16 +20,14 @@
     <v-main>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <div>Main content</div>
-        <div>User is authenticated: {{ rootVueAppProps.userIsAuthenticated }}</div>
+        <!-- <div>User is authenticated: {{ rootVueAppProps.userIsAuthenticated }}</div>
         <form method="post" action="/Home/Login">
           <button type="submit">Login</button>
-        </form>
+        </form> -->
 
         <h1>Warframes</h1>
         <div v-for="warframe in warframes" :key="warframe.id">
-          <span>id: {{ warframe.id }}</span>
-          <span>name: {{ warframe.name }}</span>
+          <warframe-card :warframe="warframe"></warframe-card>
         </div>
       </v-container>
     </v-main>
@@ -52,17 +41,18 @@
 
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import WarframeCard from './WarframeCard.vue'
+import Warframe from './Warframe'
 
 interface RootVueAppProps {
   userIsAuthenticated?: boolean
 }
 
-interface Warframe {
-  id: number
-  name: string
-}
-
-@Component
+@Component({
+  components: {
+    'warframe-card': WarframeCard,
+  },
+})
 export default class App extends Vue {
   message = 'Hello from Vue'
   rootVueAppProps: RootVueAppProps = {}
@@ -77,7 +67,7 @@ export default class App extends Vue {
   }
 
   async mounted(): Promise<void> {
-    const data = await fetch('https://framedex-api.azurewebsites.net/warframes').then(response => response.json())
+    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
 
     this.warframes = data
 
