@@ -32,7 +32,7 @@ namespace Api.Controllers
         var warframeStatModels = await httpClient.GetFromJsonAsync<List<WarframeStatModel>>("https://api.warframestat.us/warframes");
         var filteredWarframeStatModels = warframeStatModels.Where(warframeStatModel => warframeStatModel.ProductCategory == "Suits").ToList();
 
-        using (var connection = new SqlConnection(configuration["ConnectionStrings:FrameDexDb"]))
+        using (var connection = new SqlConnection(configuration["FrameDexDbConnectionString"]))
         {
           var itemTypeId = await connection.QuerySingleAsync<int>(
           @"

@@ -33,7 +33,7 @@ namespace Api.Controllers
       {
         var warframes = new List<Warframe>();
 
-        using (var connection = new SqlConnection(configuration["ConnectionStrings:FrameDexDb"]))
+        using (var connection = new SqlConnection(configuration["FrameDexDbConnectionString"]))
         {
           string getWarframesSql = @"
             SELECT *
