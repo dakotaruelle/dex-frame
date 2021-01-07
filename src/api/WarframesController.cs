@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Api.DataUpdates.Warframe;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Api.Controllers
@@ -16,11 +17,13 @@ namespace Api.Controllers
   [Route("warframes")]
   public class WarframesController : ControllerBase
   {
-    private readonly ILogger<WarframesController> _logger;
+    private readonly ILogger<WarframesController> logger;
+    private readonly IConfiguration configuration;
 
-    public WarframesController(ILogger<WarframesController> logger)
+    public WarframesController(ILogger<WarframesController> logger, IConfiguration configuration)
     {
-      _logger = logger;
+      this.logger = logger;
+      this.configuration = configuration;
     }
 
     [HttpGet]
@@ -30,7 +33,7 @@ namespace Api.Controllers
       {
         var warframes = new List<Warframe>();
 
-        using (var connection = new SqlConnection("Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"))
+        using (var connection = new SqlConnection(configuration["ConnectionStrings:FrameDexDb"]))
         {
           string getWarframesSql = @"
             SELECT *

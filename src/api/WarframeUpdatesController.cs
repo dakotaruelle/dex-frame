@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Api.DataUpdates.Warframe;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Api.Controllers
 {
@@ -15,7 +16,12 @@ namespace Api.Controllers
   [Route("warframeupdates")]
   public class WarframeUpdatesController : ControllerBase
   {
-    public WarframeUpdatesController() { }
+    private readonly IConfiguration configuration;
+
+    public WarframeUpdatesController(IConfiguration configuration)
+    {
+      this.configuration = configuration;
+    }
 
     [HttpGet]
     public async Task<IActionResult> Get()
@@ -26,7 +32,7 @@ namespace Api.Controllers
         var warframeStatModels = await httpClient.GetFromJsonAsync<List<WarframeStatModel>>("https://api.warframestat.us/warframes");
         var filteredWarframeStatModels = warframeStatModels.Where(warframeStatModel => warframeStatModel.ProductCategory == "Suits").ToList();
 
-        using (var connection = new SqlConnection("Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"))
+        using (var connection = new SqlConnection(configuration["ConnectionStrings:FrameDexDb"]))
         {
           var itemTypeId = await connection.QuerySingleAsync<int>(
           @"
