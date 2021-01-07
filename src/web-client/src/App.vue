@@ -46,6 +46,7 @@ import Warframe from './Warframe'
 
 interface RootVueAppProps {
   userIsAuthenticated?: boolean
+  apiProjectUrl?: string
 }
 
 @Component({
@@ -67,11 +68,9 @@ export default class App extends Vue {
   }
 
   async mounted(): Promise<void> {
-    const data = await fetch('https://localhost:9001/warframes').then(response => response.json())
-
-    this.warframes = data
-
     this.rootVueAppProps = (window as any).rootVueAppProps
+
+    this.warframes = await fetch(`${this.rootVueAppProps.apiProjectUrl}/warframes`).then(response => response.json())
   }
 }
 </script>

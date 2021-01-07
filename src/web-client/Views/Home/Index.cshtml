@@ -1,3 +1,5 @@
+@model string
+
 <div id="vue-app" style="padding-top: 50px;"></div>
 
 @section Styles {
@@ -7,7 +9,8 @@
 @section Scripts {
   <script>
     var rootVueAppProps = {
-      userIsAuthenticated: '@User.Identity.IsAuthenticated.ToString().ToLower()' !== 'false'
+      userIsAuthenticated: '@User.Identity.IsAuthenticated.ToString().ToLower()' !== 'false',
+      apiProjectUrl: '@Model'
     }
   </script>
 
