@@ -125,10 +125,9 @@ jobs:
   update-db:
     runs-on: ubuntu-18.04
     steps:
-      - name: Checkout Repo
-          uses: actions/checkout@v2
-      - name: Setup .NET Core
-          uses: actions/setup-dotnet@v1.4.0
+      - uses: actions/checkout@v2
+      - name: Set .NET Core SDK version
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
       
