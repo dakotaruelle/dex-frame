@@ -67,7 +67,8 @@
       "stopAtEntry": false,
 
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DbConnectionString": "Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"
       }
     }
     // {

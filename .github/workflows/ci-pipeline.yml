@@ -122,58 +122,21 @@ jobs:
         run: |
           az webapp deployment source config-zip -g djr-rg-frame-dex -n framedex --src artifacts/webclient.zip
 
-  build-app-data:
+  update-db:
     runs-on: ubuntu-18.04
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Set .NET Core SDK version
-        uses: actions/setup-dotnet@v1
+      - name: Checkout Repo
+          uses: actions/checkout@v2
+      - name: Setup .NET Core
+          uses: actions/setup-dotnet@v1.4.0
         with:
           dotnet-version: 3.1.301
-
-      - name: Install AppData dependencies
-        run: dotnet restore "src/app-data/AppData.csproj"
-
-      - name: Build AppData C# project
-        run: dotnet build "src/app-data/AppData.csproj" --configuration Release --no-restore
-
-      - name: Create AppData release artifacts
-        run: dotnet publish "src/app-data/AppData.csproj" --configuration Release --no-restore --no-build --output dist
-
-      - name: Upload AppData release artifacts
-        uses: actions/upload-artifact@v2.2.1
-        with:
-          name: appdata
-          path: dist/
-          if-no-files-found: error
-          retention-days: 90
-
-  deploy-app-data:
-    runs-on: ubuntu-18.04
-    needs: [build-app-data]
-
-    steps:
-      - name: Download AppData artifacts
-        uses: actions/download-artifact@v2.0.6
-        with:
-          name: appdata
-          path: artifacts
-
-      - shell: bash
-        name: Login to Azure
-        env:
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        run: |
-          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-
-      - shell: bash
-        name: Apply Migration Scripts
-        env:
-          AZURE_DB_CONNECTION_STRING: ${{ secrets.AZURE_DB_CONNECTION_STRING }}
-        run: dotnet artifacts/AppData.dll "$AZURE_DB_CONNECTION_STRING"
+      
+      - name: Update Database
+        working-directory: 'src/app-data'
+        env: 
+          DbConnectionString: ${{ secrets.AZURE_DB_CONNECTION_STRING }}        
+        run: dotnet run
 
   build-identity-server:
     runs-on: ubuntu-18.04

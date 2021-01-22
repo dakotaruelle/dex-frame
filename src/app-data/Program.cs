@@ -9,7 +9,7 @@ namespace AppData
   {
     static int Main(string[] args)
     {
-      var connectionString = args.FirstOrDefault() ?? "Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true";
+      var connectionString = Environment.GetEnvironmentVariable("DbConnectionString");
       EnsureDatabase.For.SqlDatabase(connectionString);
 
       var upgrader = DeployChanges.To
