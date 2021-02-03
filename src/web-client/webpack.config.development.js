@@ -19,9 +19,8 @@ module.exports = {
       secure: false, // don't verify the self-signed certificate
     },
     https: true,
-    key: fs.readFileSync('./server.pem'),
-    cert: fs.readFileSync('./server.pem'),
-    ca: fs.readFileSync('./server.pem'),
+    key: fs.readFileSync('./private.key'),
+    cert: fs.readFileSync('./private.crt'),
   },
 
   module: {
