@@ -1,21 +1,5 @@
 <template>
   <v-app>
-    <v-app-bar absolute shrink-on-scroll color="#6A76AB" dark app prominent src="">
-      <template v-slot:img="{ props }">
-        <v-img v-bind="props" gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"></v-img>
-      </template>
-
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Title</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
-
     <!-- Sizes your content based upon application components -->
     <v-main>
       <!-- Provides the application the proper gutter -->
@@ -25,14 +9,13 @@
           <button type="submit">Login</button>
         </form> -->
 
-        <h1>Warframes</h1>
-        <div v-for="warframe in warframes" :key="warframe.id">
-          <warframe-card :warframe="warframe"></warframe-card>
-        </div>
+        <v-row justify="center">
+          <v-col v-for="warframe in warframes" :key="warframe.id" cols="5">
+            <warframe-card :warframe="warframe"></warframe-card>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
-
-    <v-footer app> Footer </v-footer>
   </v-app>
 </template>
 
