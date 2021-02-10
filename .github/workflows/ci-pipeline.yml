@@ -12,10 +12,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set .NET Core SDK version
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.301
 
       - name: Install Api dependencies
         run: dotnet restore "src/api/Api.csproj"
@@ -130,11 +126,11 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.301
-      
+
       - name: Update Database
         working-directory: 'src/app-data'
-        env: 
-          DbConnectionString: ${{ secrets.AZURE_DB_CONNECTION_STRING }}        
+        env:
+          DbConnectionString: ${{ secrets.AZURE_DB_CONNECTION_STRING }}
         run: dotnet run
 
   build-identity-server:

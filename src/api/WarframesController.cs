@@ -40,7 +40,7 @@ namespace Api.Controllers
             FROM dbo.Warframe
           ";
 
-          warframes = connection.Query<Warframe>(getWarframesSql).ToList();
+          warframes = (await connection.QueryAsync<Warframe>(getWarframesSql)).ToList();
         }
 
         return warframes;
