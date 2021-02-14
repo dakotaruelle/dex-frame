@@ -21,12 +21,12 @@ namespace Api
 
       services.AddCors(options =>
         {
-          options.AddPolicy(name: "AllowFrameDexWebClient", builder =>
+          options.AddPolicy(name: "AllowDexFrameWebClient", builder =>
             {
               builder.WithOrigins(
                 "https://localhost:7000",
                 "https://localhost:7001",
-                "https://framedex.azurewebsites.net"
+                "https://dexframe.azurewebsites.net"
               );
             });
         }
@@ -44,7 +44,7 @@ namespace Api
 
       app.UseRouting();
 
-      app.UseCors("AllowFrameDexWebClient");
+      app.UseCors("AllowDexFrameWebClient");
 
       app.UseAuthorization();
 

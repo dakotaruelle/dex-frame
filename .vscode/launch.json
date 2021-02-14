@@ -68,7 +68,7 @@
 
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DbConnectionString": "Server=localhost\\SqlExpress; Database=FrameDex; Trusted_connection=true"
+        "DbConnectionString": "Server=localhost\\SqlExpress; Database=DexFrame; Trusted_connection=true"
       }
     }
     // {
