@@ -10,11 +10,13 @@
       fade-img-on-scroll
       src="/images/banner.jpg"
       contain
-      height="275"
+      height="500"
     >
-      <v-app-bar-nav-icon><v-img src="/images/logo.png" contain max-width="50"></v-img></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="main-app-bar" style="margin-left: -8px"
+        ><v-img src="/images/logo.png" contain max-height="48"></v-img
+      ></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Page title</v-toolbar-title>
+      <v-toolbar-title>Dex Frame</v-toolbar-title>
 
       <v-spacer></v-spacer>
 

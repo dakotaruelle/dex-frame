@@ -1,3 +1,7 @@
 ﻿.large-font-size {
   font-size: 3rem;
 }
+
+.main-app-bar.v-btn:hover::before {
+  opacity: 0 !important;
+}
