@@ -9,7 +9,6 @@
       shrink-on-scroll
       fade-img-on-scroll
       src="/images/banner.jpg"
-      contain
       height="500"
     >
       <v-app-bar-nav-icon class="main-app-bar" style="margin-left: -8px"
@@ -42,6 +41,8 @@
         <form method="post" action="/Home/Login">
           <button type="submit">Login</button>
         </form> -->
+
+        <div style="height: 575px"></div>
 
         <v-row justify="center">
           <v-col v-for="warframe in warframes" :key="warframe.id" cols="5">
