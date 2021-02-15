@@ -29,9 +29,9 @@ namespace WebClient
         .AddCookie("Cookies")
         .AddOpenIdConnect("oidc", options =>
         {
-          options.Authority = "https://dexframe-identity.azurewebsites.net/";
+          options.Authority = Configuration["IdentityServerProjectUrl"];
 
-          options.ClientId = "interactive";
+          options.ClientId = "dexframewebclient";
           options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
           options.ResponseType = $"code";
 

@@ -9,7 +9,7 @@ namespace AppData
   {
     static int Main(string[] args)
     {
-      var connectionString = Environment.GetEnvironmentVariable("DbConnectionString");
+      var connectionString = Environment.GetEnvironmentVariable("DexFrameDbConnectionString");
       EnsureDatabase.For.SqlDatabase(connectionString);
 
       var upgrader = DeployChanges.To
