@@ -11,7 +11,7 @@
           </v-card-actions>
         </div>
 
-        <v-avatar size="150" tile class="mr-10">
+        <v-avatar size="150" tile class="mr-5">
           <v-img :src="`https://cdn.warframestat.us/img/${warframe.imageName}`" max-height="100" contain></v-img>
         </v-avatar>
       </div>
