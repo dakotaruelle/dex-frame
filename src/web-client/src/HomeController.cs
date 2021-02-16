@@ -15,6 +15,7 @@ namespace WebClient.Controllers
 
     public IActionResult Index()
     {
+      var user = User;
       return View(nameof(HomeController.Index), configuration["ApiProjectUrl"]);
     }
 

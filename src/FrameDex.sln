@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "api\Api.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppData", "app-data\AppData.csproj", "{200212AC-1236-4F40-841D-CA56C9C680EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "identity-server\IdentityServer.csproj", "{D6C7292E-2FC0-499E-B980-3B8A96B96E79}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "web-client\WebClient.csproj", "{C8B4D9A3-6470-4543-AE76-1AE96E372662}"
 EndProject
 Global

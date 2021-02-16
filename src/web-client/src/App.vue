@@ -11,9 +11,9 @@
       src="/images/banner2.jpg"
       height="500"
     >
-      <v-app-bar-nav-icon class="main-app-bar" style="margin-left: -8px"
-        ><v-img src="/images/logo.png" contain max-height="48"></v-img
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="main-app-bar" style="margin-left: -8px">
+        <v-img src="/images/logo.png" contain max-height="48"></v-img>
+      </v-app-bar-nav-icon>
 
       <v-toolbar-title>Dex Frame</v-toolbar-title>
 
@@ -22,14 +22,19 @@
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon>mdi-account</v-icon>
+            <v-icon :color="rootVueAppProps.userIsAuthenticated ? 'blue' : 'white'">mdi-account</v-icon>
           </v-btn>
         </template>
 
-        <v-list class="mt-7">
-          <v-list-item @click="login">
+        <v-list>
+          <div class="pb-4 pl-4">Logged in as:</div>
+          <v-list-item v-if="!rootVueAppProps.userIsAuthenticated" @click="login" class="px-10">
             <form id="login-form" method="POST" action="/Home/Login"></form>
             <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-else @click="logout" class="px-10">
+            <form id="logout-form" method="POST" action="/Home/Logout"></form>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -85,6 +90,11 @@ export default class App extends Vue {
 
   login(): void {
     document.getElementById('login-form').submit()
+  }
+
+  logout(): void {
+    // document.getElementById('logout-form').submit()
+    console.log('logout')
   }
 
   async mounted(): Promise<void> {

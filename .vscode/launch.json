@@ -38,24 +38,6 @@
       }
     },
     {
-      "name": "Identity Server",
-      "type": "coreclr",
-      "request": "launch",
-      "preLaunchTask": "build IdentityServer",
-      // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/identity-server/bin/Debug/net5.0/IdentityServer.dll",
-      "args": [],
-      "cwd": "${workspaceFolder}/src/identity-server/",
-      "stopAtEntry": false,
-
-      "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "sourceFileMap": {
-        "/Views": "${workspaceFolder}/src/identity-server/Views"
-      }
-    },
-    {
       "name": "Update DB",
       "type": "coreclr",
       "request": "launch",
