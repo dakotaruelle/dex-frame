@@ -118,10 +118,6 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: Set .NET Core SDK version
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.301
 
       - name: Update Database
         working-directory: 'src/app-data'

@@ -10,7 +10,7 @@
       "request": "launch",
       "preLaunchTask": "build WebClient",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/web-client/bin/Debug/netcoreapp3.1/WebClient.dll",
+      "program": "${workspaceFolder}/src/web-client/bin/Debug/net5.0/WebClient.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/web-client/",
       "stopAtEntry": false,
@@ -28,7 +28,7 @@
       "request": "launch",
       "preLaunchTask": "build Api",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/api/bin/Debug/netcoreapp3.1/Api.dll",
+      "program": "${workspaceFolder}/src/api/bin/Debug/net5.0/Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/api/",
       "stopAtEntry": false,
@@ -43,7 +43,7 @@
       "request": "launch",
       "preLaunchTask": "build IdentityServer",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/identity-server/bin/Debug/netcoreapp3.1/IdentityServer.dll",
+      "program": "${workspaceFolder}/src/identity-server/bin/Debug/net5.0/IdentityServer.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/identity-server/",
       "stopAtEntry": false,
@@ -61,7 +61,7 @@
       "request": "launch",
       "preLaunchTask": "build AppData",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/app-data/bin/Debug/netcoreapp3.1/AppData.exe",
+      "program": "${workspaceFolder}/src/app-data/bin/Debug/net5.0/AppData.exe",
       "args": [],
       "cwd": "${workspaceFolder}/src/app-data/",
       "stopAtEntry": false,
@@ -71,11 +71,5 @@
         "DbConnectionString": "Server=localhost\\SqlExpress; Database=DexFrame; Trusted_connection=true"
       }
     }
-    // {
-    //   "name": ".NET Core Attach",
-    //   "type": "coreclr",
-    //   "request": "attach",
-    //   "processId": "${command:pickProcess}"
-    // }
   ]
 }
