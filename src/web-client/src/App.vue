@@ -8,7 +8,7 @@
       prominent
       shrink-on-scroll
       fade-img-on-scroll
-      src="/images/banner.jpg"
+      src="/images/banner2.jpg"
       height="500"
     >
       <v-app-bar-nav-icon class="main-app-bar" style="margin-left: -8px"
@@ -27,7 +27,8 @@
         </template>
 
         <v-list class="mt-7">
-          <v-list-item @click="() => {}">
+          <v-list-item @click="login">
+            <form id="login-form" method="POST" action="/Home/Login"></form>
             <v-list-item-title>Login</v-list-item-title>
           </v-list-item>
         </v-list>
@@ -62,6 +63,8 @@ import Component from 'vue-class-component'
 import WarframeCard from './WarframeCard.vue'
 import Warframe from './Warframe'
 
+declare const document: any
+
 interface RootVueAppProps {
   userIsAuthenticated?: boolean
   apiProjectUrl?: string
@@ -73,22 +76,23 @@ interface RootVueAppProps {
   },
 })
 export default class App extends Vue {
-  message = 'Hello from Vue'
   rootVueAppProps: RootVueAppProps = {}
   warframes: Warframe[] = []
 
-  getMessage(): string {
-    return this.message
-  }
-
   toggleDarkTheme(): void {
     this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+  }
+
+  login(): void {
+    document.getElementById('login-form').submit()
   }
 
   async mounted(): Promise<void> {
     this.rootVueAppProps = (window as any).rootVueAppProps
 
     this.warframes = await fetch(`${this.rootVueAppProps.apiProjectUrl}/warframes`).then(response => response.json())
+
+    console.log('user authenticated: ', this.rootVueAppProps.userIsAuthenticated)
   }
 }
 </script>
