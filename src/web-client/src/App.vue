@@ -22,13 +22,13 @@
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon :color="rootVueAppProps.userIsAuthenticated ? 'blue' : 'white'">mdi-account</v-icon>
+            <v-icon :color="profileIconColor">mdi-account</v-icon>
           </v-btn>
         </template>
 
         <v-list>
-          <div class="pb-4 pl-4">Logged in as:</div>
-          <v-list-item v-if="!rootVueAppProps.userIsAuthenticated" @click="login" class="px-10">
+          <div class="pb-4 px-4">{{ email }}</div>
+          <v-list-item v-if="!userIsAuthenticated" @click="login" class="px-10">
             <form id="login-form" method="POST" action="/Home/Login"></form>
             <v-list-item-title>Login</v-list-item-title>
           </v-list-item>
@@ -43,11 +43,6 @@
     <v-main>
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
-        <!-- <div>User is authenticated: {{ rootVueAppProps.userIsAuthenticated }}</div>
-        <form method="post" action="/Home/Login">
-          <button type="submit">Login</button>
-        </form> -->
-
         <div style="height: 575px"></div>
 
         <v-row justify="center">
@@ -70,8 +65,13 @@ import Warframe from './Warframe'
 
 declare const document: any
 
+interface User {
+  email: string
+  userIsAuthenticated: boolean
+}
+
 interface RootVueAppProps {
-  userIsAuthenticated?: boolean
+  user?: User
   apiProjectUrl?: string
 }
 
@@ -101,8 +101,18 @@ export default class App extends Vue {
     this.rootVueAppProps = (window as any).rootVueAppProps
 
     this.warframes = await fetch(`${this.rootVueAppProps.apiProjectUrl}/warframes`).then(response => response.json())
+  }
 
-    console.log('user authenticated: ', this.rootVueAppProps.userIsAuthenticated)
+  get profileIconColor() {
+    return this.userIsAuthenticated ? 'blue' : 'white'
+  }
+
+  get userIsAuthenticated() {
+    return this.rootVueAppProps.user?.userIsAuthenticated ?? false
+  }
+
+  get email() {
+    return this.rootVueAppProps.user?.email ?? ''
   }
 }
 </script>

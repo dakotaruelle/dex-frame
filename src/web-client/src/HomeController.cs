@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebClient.ViewModels;
 
 namespace WebClient.Controllers
 {
@@ -15,8 +17,17 @@ namespace WebClient.Controllers
 
     public IActionResult Index()
     {
-      var user = User;
-      return View(nameof(HomeController.Index), configuration["ApiProjectUrl"]);
+      var claimsIdentity = User.Identity as ClaimsIdentity;
+      var email = claimsIdentity.FindFirst("email").Value;
+
+      var viewModel = new IndexPageViewModel
+      {
+        Email = email,
+        UserIsAuthenticated = User.Identity.IsAuthenticated,
+        ApiProjectUrl = configuration["ApiProjectUrl"]
+      };
+
+      return View(nameof(HomeController.Index), viewModel);
     }
 
     [HttpPost]

@@ -1,4 +1,4 @@
-@model string
+@model WebClient.ViewModels.IndexPageViewModel
 
 <div id="vue-app" style="padding-top: 50px;"></div>
 
@@ -9,8 +9,11 @@
 @section Scripts {
   <script>
     var rootVueAppProps = {
-      userIsAuthenticated: '@User.Identity.IsAuthenticated.ToString().ToLower()' !== 'false',
-      apiProjectUrl: '@Model'
+      user: {
+        email: '@Model.Email',
+        userIsAuthenticated: '@Model.UserIsAuthenticated.ToString().ToLower()' !== 'false',
+      },
+      apiProjectUrl: '@Model.ApiProjectUrl',
     }
   </script>
 

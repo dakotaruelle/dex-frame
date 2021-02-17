@@ -1,3 +1,5 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,11 +17,12 @@ namespace WebClient
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews()
         .AddRazorRuntimeCompilation();
+
+      JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
       services.AddAuthentication(options =>
       {
@@ -30,16 +33,23 @@ namespace WebClient
         .AddOpenIdConnect("oidc", options =>
         {
           options.Authority = Configuration["IdentityServerProjectUrl"];
-
           options.ClientId = "dexframewebclient";
           options.ClientSecret = "49C1A7E1-0C79-4A89-A3D6-A37998FB86B0";
-          options.ResponseType = $"code";
 
+          options.ResponseType = "code";
+          options.UsePkce = true;
           options.SaveTokens = true;
+
+          options.Scope.Clear();
+          options.Scope.Add("openid");
+          options.Scope.Add("profile");
+          options.Scope.Add("email");
+          options.GetClaimsFromUserInfoEndpoint = true;
+
+          options.DisableTelemetry = true;
         });
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
       if (env.IsDevelopment())
