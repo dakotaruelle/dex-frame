@@ -27,7 +27,7 @@
         </template>
 
         <v-list>
-          <div class="pb-4 px-4">{{ email }}</div>
+          <div v-if="userIsAuthenticated" class="pb-4 px-4">{{ email }}</div>
           <v-list-item v-if="!userIsAuthenticated" @click="login" class="px-10">
             <form id="login-form" method="POST" action="/Home/Login"></form>
             <v-list-item-title>Login</v-list-item-title>
@@ -93,8 +93,7 @@ export default class App extends Vue {
   }
 
   logout(): void {
-    // document.getElementById('logout-form').submit()
-    console.log('logout')
+    document.getElementById('logout-form').submit()
   }
 
   async mounted(): Promise<void> {

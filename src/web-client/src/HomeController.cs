@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -18,12 +19,12 @@ namespace WebClient.Controllers
     public IActionResult Index()
     {
       var claimsIdentity = User.Identity as ClaimsIdentity;
-      var email = claimsIdentity.FindFirst("email").Value;
+      var emailClaim = claimsIdentity.FindFirst("email");
 
       var viewModel = new IndexPageViewModel
       {
-        Email = email,
-        UserIsAuthenticated = User.Identity.IsAuthenticated,
+        Email = emailClaim?.Value ?? "",
+        UserIsAuthenticated = claimsIdentity.IsAuthenticated,
         ApiProjectUrl = configuration["ApiProjectUrl"]
       };
 
@@ -37,6 +38,13 @@ namespace WebClient.Controllers
       {
         RedirectUri = returnUrl ?? "/"
       }, "oidc");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+      await HttpContext.SignOutAsync();
+      return LocalRedirect("/");
     }
   }
 }
