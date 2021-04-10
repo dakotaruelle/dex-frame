@@ -102,15 +102,15 @@ export default class App extends Vue {
     this.warframes = await fetch(`${this.rootVueAppProps.apiProjectUrl}/warframes`).then(response => response.json())
   }
 
-  get profileIconColor() {
+  get profileIconColor(): string {
     return this.userIsAuthenticated ? 'blue' : 'white'
   }
 
-  get userIsAuthenticated() {
+  get userIsAuthenticated(): boolean {
     return this.rootVueAppProps.user?.userIsAuthenticated ?? false
   }
 
-  get email() {
+  get email(): string {
     return this.rootVueAppProps.user?.email ?? ''
   }
 }
