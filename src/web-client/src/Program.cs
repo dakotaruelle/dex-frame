@@ -41,7 +41,14 @@ namespace WebClient
               reloadOnChange: true
           );
 
-          config.AddAzureAppConfiguration(azureAppConfigurationConnection);
+          config.AddAzureAppConfiguration(options =>
+          {
+            options.Connect(azureAppConfigurationConnection)
+                .ConfigureKeyVault(options =>
+                {
+                  options.SetCredential(AzureCredentialProvider.GetAzureCredential(env, settings));
+                });
+          });
 
           if (env.IsDevelopment())
           {
