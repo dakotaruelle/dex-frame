@@ -122,5 +122,5 @@ jobs:
       - name: Update Database
         working-directory: 'src/app-data'
         env:
-          DbConnectionString: ${{ secrets.AZURE_DB_CONNECTION_STRING }}
+          DexFrameDbConnectionString: ${{ secrets.AZURE_DB_CONNECTION_STRING }}
         run: dotnet run
