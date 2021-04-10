@@ -57,7 +57,7 @@ jobs:
       - shell: bash
         name: Deploy Api to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-dexframe -n dexframeapi --src artifacts/api.zip
+          az webapp deployment source config-zip -g djr-rg-dex -n dexframe-api --src artifacts/api.zip
 
   build-web-client:
     runs-on: ubuntu-18.04
@@ -112,7 +112,7 @@ jobs:
       - shell: bash
         name: Deploy WebClient to Azure
         run: |
-          az webapp deployment source config-zip -g djr-rg-dexframe -n dexframe --src artifacts/webclient.zip
+          az webapp deployment source config-zip -g djr-rg-dex -n dexframe --src artifacts/webclient.zip
 
   update-db:
     runs-on: ubuntu-18.04
